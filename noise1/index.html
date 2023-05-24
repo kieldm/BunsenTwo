@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+  <script src="sketch_noise1.js" type="text/javascript"></script>
+  <script src="update.js" type="text/javascript"></script>
+  
+  <script src="particle0.js" type="text/javascript"></script>
+  <script src="particle1.js" type="text/javascript"></script>
+  <script src="particle2.js" type="text/javascript"></script>
+
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+  
+  <div id="generatorInput">
+    <div class="titleh2">
+      <h2>CULTURE BIO</h2>
+      <p>experiments from Bunsen</p>
+      <p>click and drag</p>
+    </div>
+    <button type="button" class="collapsible"><h1>MODE</h1></button>
+    <div class="content">
+      <!-- <div class="module">
+        <button type="button" class="saveButton" onclick="setPartSet(0)">1: Color</button>
+      </div>
+      <div class="module">
+        <button type="button" class="saveButton" onclick="setPartSet(1)">2: Push</button>
+      </div> -->
+
+      <div class="coupling1">
+        <input type="checkbox" class="checkbox1" id="clickPushOn" name="clickPushOn" onclick="togglePushOn()">
+        <label for="clickPushOn">Click to Push</label>
+      </div>
+
+      <div class="coupling1">
+        <input type="checkbox" class="checkbox1" id="clickColorOn" name="clickColorOn" onclick="toggleColorOn()" checked>
+        <label for="clickColorOn">Click to Color</label>
+      </div>
+
+      <div class="coupling1">
+        <input type="checkbox" class="checkbox1" id="fadeOn" name="fadeOn" onclick="toggleFade()">
+        <label for="fadeOn">Trail</label>
+      </div>
+
+      <div class="module">
+        <button type="button" class="saveButton" onclick="reRoll()">Reroll</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // When the user clicks on <div>, open the popup
+    function myFunction() {
+      var popup = document.getElementById("myPopup");
+      popup.classList.toggle("show");
+    }
+  </script>
+
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+  
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
