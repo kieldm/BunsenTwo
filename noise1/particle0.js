@@ -12,12 +12,19 @@ class Particle0{
     this.colorOn = _color;
 
     this.clrDis = 0;
-  	this.clr = color(foreColor);  
+  	this.clr = foreColor;
 
-    this.colA = color(255,72,66);
-    this.colB = color(0,181,247);
-    this.colC = color(105,92,253);
-    this.colD = color(foreColor);
+    this.partSize = 1.5;
+    this.snkLength = 5;
+    this.snk = [];
+
+    this.type = 0;
+
+    for(var m = 0; m < this.snkLength; m++){
+      this.snk[m] = createVector(this.loc.x, this.loc.y);
+    }
+
+    this.border = 10;
   }
 
   run() {
@@ -26,6 +33,7 @@ class Particle0{
     this.mouseCheck();
     this.update();
   }
+
   move(){
     let angle=noise(this.loc.x/this.noiseScale, this.loc.y/this.noiseScale, frameCount/this.noiseScale)*TWO_PI*this.noiseStrength; //0-2PI
 
@@ -35,32 +43,44 @@ class Particle0{
     var d =1;  //direction change 
     vel.mult(this.speed*d); //vel = vel * (speed*d)
     this.loc.add(vel); //loc = loc + vel
-  }
-  
-  checkEdges(){    
-    if(this.loc.x < -5){
-      this.loc.x = width + 5;
-      this.loc.y = random(height);
-      
-      this.clrDis = 0;
-    } else if(this.loc.x > width + 5){
-      this.loc.x = -5;
-      this.loc.y = random(height);
 
-      this.clrDis = 0;
-    } else if(this.loc.y > height + 5){
-      this.loc.x = random(width);
-      this.loc.y = -5;
-
-      this.clrDis = 0;
-    } else if(this.loc.y < -5){
-      this.loc.x = random(width);
-      this.loc.y = height + 5;
-
-      this.clrDis = 0;
+    this.snk[0].set(this.loc.x, this.loc.y);
+    for(var m = this.snkLength - 1; m > 0; m--){
+      this.snk[m].set(this.snk[m-1]);
     }
   }
   
+  checkEdges(){    
+    if(this.loc.x < -this.border){
+      this.loc.x = width + this.border;
+      this.loc.y = random(height);
+      
+      this.reset();
+    } else if(this.loc.x > width + this.border){
+      this.loc.x = -this.border;
+      this.loc.y = random(height);
+
+      this.reset();
+    } else if(this.loc.y > height + this.border){
+      this.loc.x = random(width);
+      this.loc.y = -this.border;
+
+      this.reset();
+    } else if(this.loc.y < -this.border){
+      this.loc.x = random(width);
+      this.loc.y = height + this.border;
+
+      this.reset();
+    }
+  }
+  
+  reset(){
+    this.clrDis = 0;
+    for(var m = 0; m < this.snkLength; m++){
+      this.snk[m] = createVector(this.loc.x, this.loc.y);
+    }
+  }
+
   mouseCheck(){
     if(mouseIsPressed && dist(mouseX, mouseY, this.loc.x, this.loc.y) < this.mouseDist){
       if(this.colorOn){
@@ -84,14 +104,29 @@ class Particle0{
   
   update(){
     if (this.clrDis < 0.4){
-      this.clr = lerpColor(this.colD, this.colC, this.clrDis/0.4);
+      this.clr = lerpColor(foreColor, colorA[0], this.clrDis/0.4);
     } else if(this.clrDis < 0.8){
-      this.clr = lerpColor(this.colC, this.colB, (this.clrDis - 0.4)/0.4);
+      this.clr = lerpColor(colorA[0], colorA[1], (this.clrDis - 0.4)/0.4);
     } else {
-      this.clr = lerpColor(this.colB, this.colA, (this.clrDis - 0.8)/0.2);
+      this.clr = lerpColor(colorA[1], colorA[2], (this.clrDis - 0.8)/0.2);
     }
 
-    fill(this.clr);
-    ellipse(this.loc.x, this.loc.y, 1, 1);
+
+    if(this.type == 0){
+      fill(this.clr);
+      noStroke();
+      
+      ellipse(this.loc.x, this.loc.y, this.partSize, this.partSize);
+    } else if(this.type == 1){
+      noFill();
+      stroke(this.clr);
+      strokeWeight(this.partSize);
+
+      beginShape();
+      for(var m = 0; m < this.snkLength; m++){
+        vertex(this.snk[m].x, this.snk[m].y);
+      }
+      endShape();
+    }
   }
 }

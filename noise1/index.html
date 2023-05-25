@@ -14,8 +14,6 @@
   <script src="update.js" type="text/javascript"></script>
   
   <script src="particle0.js" type="text/javascript"></script>
-  <script src="particle1.js" type="text/javascript"></script>
-  <script src="particle2.js" type="text/javascript"></script>
 
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,6 +38,41 @@
         <button type="button" class="saveButton" onclick="setPartSet(1)">2: Push</button>
       </div> -->
 
+      <h3>PARTICLE</h3>
+      <div class="coupling1" id="scaleRing">
+        <div class="coupling_label"><h5>Size</h5></div>
+        <input type="range" min="0" max="100" value="15" id="partSizeSlider" oninput="setPartSize(this.value)">
+      </div>
+      
+      <select name="particleType" id="particleType" onchange="setPartType(this.value)">
+        <option value="0" selected="selected">Dot</option>
+        <option value="1">Worm</option>
+      </select>
+
+      <h3>COLORS</h3>
+      <div class="coupling1">
+        <input type="color" class="colorSetInput" id="background" name="background" value="#ffffff" oninput="setBkgd(this.value)">
+        <label for="background">Background</label>
+      </div>
+      <div class="coupling1">
+        <input type="color" class="colorSetInput" id="foreColor" name="foreColor" value="#000000" oninput="setFore(this.value)">
+        <label for="foreColor">Particle</label>
+      </div>
+      <h4>Gradient</h4>
+      <div class="coupling1">
+        <input type="color" class="colorSetInput" id="colorA0" name="colorA0" value="#ff4842" oninput="setColorA(0, this.value)">
+        <label for="colorA0">Knot One</label>
+      </div>
+      <div class="coupling1">
+        <input type="color" class="colorSetInput" id="colorA1" name="colorA1" value="#00b5f7" oninput="setColorA(1, this.value)">
+        <label for="colorA1">Knot Two</label>
+      </div>
+      <div class="coupling1">
+        <input type="color" class="colorSetInput" id="colorA2" name="colorA2" value="#695cfd" oninput="setColorA(2, this.value)">
+        <label for="colorA2">Knot Three</label>
+      </div>
+
+      <h3>INTERACTION</h3>
       <div class="coupling1">
         <input type="checkbox" class="checkbox1" id="clickPushOn" name="clickPushOn" onclick="togglePushOn()">
         <label for="clickPushOn">Click to Push</label>
